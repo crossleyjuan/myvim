@@ -37,6 +37,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'tpope/vim-rails.git'
+Bundle 'tpope/vim-surround.git'
 " vim-scripts repos
 Bundle 'L9'
 Bundle 'FuzzyFinder'
@@ -46,10 +47,24 @@ Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'taglist.vim'
 Bundle 'DoxygenToolkit.vim'
 Bundle 'a.vim'
+Bundle "gilligan/vim-lldb"
+Bundle 'pangloss/vim-javascript'
 "Bundle 'doxygen-support.vim'
+"
+" Bundles for SnipMate
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+
+" Optional:
+Plugin 'honza/vim-snippets'
 
 filetype plugin indent on     " required!
 
+
+autocmd Filetype javascript setlocal ts=3 sw=3 expandtab
+
+au BufRead,BufNewFile *-tmpl.txt set filetype=html
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
@@ -128,3 +143,9 @@ set tags+=/usr/include/tags
 "let g:DoxygenToolkit_licenseTag = g:DoxygenToolkit_licenseTag . "// charge yourself if you want), bare in mind that you will be required to provide a copy of the license terms that ensures\<enter>"
 "let g:DoxygenToolkit_licenseTag = g:DoxygenToolkit_licenseTag . "// this program will be open sourced and all its derivated work will be too.\<enter>"
 "let g:DoxygenToolkit_licenseTag = g:DoxygenToolkit_licenseTag . "// =====================================================================================\<enter>"
+"
+"
+"
+" XSLT 
+:map <F9> :let @a=expand('%:p')<CR>:tabe<CR>:read !xsltproc ~/temp/testxslt/Temp.xsl <c-r>a<CR>                                                                                                
+
