@@ -59,12 +59,15 @@ Plugin 'garbas/vim-snipmate'
 " Optional:
 Plugin 'honza/vim-snippets'
 
+Plugin 'elzr/vim-json'
+
 filetype plugin indent on     " required!
 
 
 autocmd Filetype javascript setlocal ts=3 sw=3 expandtab
 
 au BufRead,BufNewFile *-tmpl.txt set filetype=html
+au BufRead,BufNewFile *.json set filetype=json
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
