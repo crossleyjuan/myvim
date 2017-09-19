@@ -25,7 +25,7 @@ set tabstop=3
 set shiftwidth=3
 set number
 filetype off
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 
 " let Vundle manage Vundle
@@ -60,6 +60,9 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 
 Plugin 'elzr/vim-json'
+
+" Typescript
+Plugin 'leafgarland/typescript-vim'
 
 filetype plugin indent on     " required!
 
@@ -152,3 +155,8 @@ set tags+=/usr/include/tags
 " XSLT 
 :map <F9> :let @a=expand('%:p')<CR>:tabe<CR>:read !xsltproc ~/temp/testxslt/Temp.xsl <c-r>a<CR>                                                                                                
 
+" Additional settings for typescript
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
