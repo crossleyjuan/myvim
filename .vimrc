@@ -28,7 +28,7 @@ set shiftwidth=4
 set number
 set backspace=2
 filetype off
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 colorscheme darkblue
 
@@ -69,6 +69,9 @@ Bundle 'ervandew/supertab'
 " Plugin 'elzr/vim-json'
 "
 Plugin 'freitass/todo.txt-vim'
+
+" Typescript
+Plugin 'leafgarland/typescript-vim'
 
 filetype plugin indent on     " required!
 
