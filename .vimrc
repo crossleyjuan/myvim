@@ -21,45 +21,54 @@ if has("syntax")
   syntax on
 endif
 
-set tabstop=3
-set shiftwidth=3
+set encoding=utf-8
+
+set tabstop=4
+set shiftwidth=4
 set number
+set backspace=2
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+colorscheme darkblue
 
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
+
+Bundle 'ervandew/supertab'
 " My Bundles here:
 " original repos on github
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-rails.git'
-Bundle 'tpope/vim-surround.git'
+" Bundle 'tpope/vim-fugitive'
+" Bundle 'Lokaltog/vim-easymotion'
+" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Bundle 'tpope/vim-rails.git'
+" Bundle 'tpope/vim-surround.git'
 " vim-scripts repos
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-" non github repos
-Bundle 'git://git.wincent.com/command-t.git'
+" Bundle 'L9'
+" Bundle 'FuzzyFinder'
+
+" non gitPluginhub repos
+" Bundle 'git://git.wincent.com/command-t.git'
 " ...
-Bundle 'taglist.vim'
-Bundle 'DoxygenToolkit.vim'
-Bundle 'a.vim'
-Bundle "gilligan/vim-lldb"
-Bundle 'pangloss/vim-javascript'
+" Bundle 'taglist.vim'
+" Bundle 'DoxygenToolkit.vim'
+" Bundle 'a.vim'
+" Bundle "gilligan/vim-lldb"
+" Bundle 'pangloss/vim-javascript'
 "Bundle 'doxygen-support.vim'
 "
 " Bundles for SnipMate
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
+" Plugin 'MarcWeber/vim-addon-mw-utils'
+" Plugin 'tomtom/tlib_vim'
+" Plugin 'garbas/vim-snipmate'
 
 " Optional:
-Plugin 'honza/vim-snippets'
+" Plugin 'honza/vim-snippets'
 
-Plugin 'elzr/vim-json'
+" Plugin 'elzr/vim-json'
+"
+Plugin 'freitass/todo.txt-vim'
 
 filetype plugin indent on     " required!
 
@@ -102,10 +111,6 @@ if filereadable("/etc/vim/vimrc.local")
 endif
 
 set tabpagemax=16
-" Mapping keys
-"
-map <F7> :tabp <CR>
-map <F8> :tabn <CR>
 
 function! s:insert_gates()
 	let gatename = substitute(toupper(expand("%:t")), "\\.", "_INCLUDED_", "g")
@@ -118,6 +123,10 @@ autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
 set tags+=/usr/include/tags
 
+au BufNewFile,BufRead *.js,*.html,*.css
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2 |
 
 "let g:DoxygenToolkit_authorName = "Juan Pablo Crossley (cross), crossleyjuan@gmail.com"
 
@@ -150,5 +159,73 @@ set tags+=/usr/include/tags
 "
 "
 " XSLT 
-:map <F9> :let @a=expand('%:p')<CR>:tabe<CR>:read !xsltproc ~/temp/testxslt/Temp.xsl <c-r>a<CR>                                                                                                
+":map <F9> :let @a=expand('%:p')<CR>:tabe<CR>:read !xsltproc ~/temp/testxslt/Temp.xsl <c-r>a<CR>                                                                                                
 
+
+"" Python support extensions and configurations
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
+"    \ set textwidth=79 |
+
+" Define BadWhitespace before using in a match
+highlight BadWhitespace ctermbg=red guibg=darkred
+
+" Flag extraneous whitespaces
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+Bundle 'vim-scripts/indentpython.vim'
+Bundle 'davidhalter/jedi-vim'
+Plugin 'nvie/vim-flake8'
+let no_flake8_maps = 1
+autocmd FileType python map <buffer> <F9> :call Flake8()<CR>
+"" colors
+Plugin 'jnurmine/Zenburn'
+Plugin 'altercation/vim-colors-solarized'
+
+if has('gui_running')
+  set background=dark
+  colorscheme solarized
+else
+  colorscheme zenburn
+endif
+
+let python_highlight_all=1
+syntax on
+
+""  NERD Tree
+"""Plugin 'scrooloose/nerdtree'
+"" Tabs with NERD
+"" Plugin 'jistr/vim-nerdtree-tabs'
+
+"" For file searching
+Plugin 'kien/ctrlp.vim'
+
+"" Git integration
+Plugin 'tpope/vim-fugitive'
+
+"" Powerline
+"""Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+
+set clipboard=unnamed
+
+"python with virtualenv support
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'scripts\activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
+
+" Mapping keys
+"
+map <F7> :tabp <CR>
+map <F8> :tabn <CR>
+
+set ruler
